@@ -18,10 +18,18 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.end_headers()   
             msgToBePrinted = "Hello World!"         
             if rev:
-            	msgToBePrinted = rev(txt)
-            elif time:
+            	msgToBePrinted = rev(txt)	           	
+            msgToBePrinted = msgToBePrinted + "\n"
+            self.wfile.write(msgToBePrinted.encode(encoding = 'UTF-8'))
+ 	elif self.path.startswith('/cmd'):
+            self.protocol_version = 'HTTP/1.1'
+            self.send_response(200)
+            self.send_header("Content-type", "text/html; charset=UTF-8")
+            self.end_headers()   
+            if self.path.split('=')[1] == 'time':
             	msgToBePrinted = datetime.now().strftime("%H:%M:%S")
-            	
+            elif self.path.split('=')[1] == 'rev&str':
+            	msgToBePrinted = rev(self.path.split('=')[2])
             msgToBePrinted = msgToBePrinted + "\n"
             self.wfile.write(msgToBePrinted.encode(encoding = 'UTF-8'))
         else:
