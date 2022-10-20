@@ -26,12 +26,14 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "text/html; charset=UTF-8")
             self.end_headers()
-            if self.path.split('=')[1] == 'time':
+            if self.path == '/cmd':
+            	msgToBePrinted = "Hello World!"
+            elif self.path.split('=')[1] == 'time':
                 msgToBePrinted = datetime.now().strftime("%H:%M:%S")
             elif self.path.split('=')[1] == 'rev&str':
                 msgToBePrinted = self.rev(self.path.split('=')[2])
             else:
-                msgToBePrinted = ""
+                msgToBePrinted = "Hello World!"
             msgToBePrinted = msgToBePrinted + "\n"
             self.wfile.write(msgToBePrinted.encode(encoding='UTF-8'))
         else:
