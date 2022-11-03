@@ -3,6 +3,7 @@ import http.server
 import socketserver
 import json
 import re
+from urllib.parse import unquote
 
 
 def statistics(string):
@@ -34,6 +35,7 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             try:
                 self.set_header("application/json")
                 to_be_parsed = self.path.split('=')[1]
+                to_be_parsed = unquote(to_be_parsed)
                 self.wfile.write(bytes(statistics(to_be_parsed),encoding='UTF-8'))
             except Exception:
                 self.wfile.write(bytes('Some exception occurred',encoding='UTF-8'))
