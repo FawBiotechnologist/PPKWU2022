@@ -32,7 +32,11 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             msgToBePrinted = "Undefined Behaviour"
             self.wfile.write(msgToBePrinted.encode(encoding='UTF-8'))
         elif self.path.startswith('/str='):
-            to_be_parsed = self.path.split('=')[1]
+            try:
+                to_be_parsed = self.path.split('=')[1]
+                self.wfile.write(bytes(statistics(to_be_parsed)))
+            except Exception:
+                self.wfile.write(bytes('Some exception occurred'))
         else:
             super().do_GET()
 
