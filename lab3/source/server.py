@@ -18,12 +18,14 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            msgToBePrinted = "Hello World!"
-            msgToBePrinted = msgToBePrinted + "\n"
+            msgToBePrinted = "Undefined Behaviour"
             self.wfile.write(msgToBePrinted.encode(encoding='UTF-8'))
+        elif self.path.startswith('/str='):
+            to_be_parsed = self.path.split('=')[1]
+            print(to_be_parsed)
         else:
             super().do_GET()
-
+# { "lowercase" : liczba, "uppercase" : liczba, "digits" : liczba, "special" : liczba}
 
 # --- main ---
 
