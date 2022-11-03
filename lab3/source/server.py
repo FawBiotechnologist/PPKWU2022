@@ -1,11 +1,22 @@
 #!/usr/bin/env python3
 import http.server
 import socketserver
-import os
 import json
+import re
 
 
-# print('source code for "http.server":', http.server.__file__)
+def statistics(string):
+    lowercase = len(re.findall(r'[a-z]', string))
+    uppercase = len(re.findall(r'[A-Z]', string))
+    digits = len(re.findall(r'[1-9]', string))
+    special = len(string) - lowercase - uppercase - digits
+    return json.dumps({
+        "lowercase": lowercase,
+        "uppercase": uppercase,
+        "digits": digits,
+        "special": special
+    })
+
 
 class web_server(http.server.SimpleHTTPRequestHandler):
 
@@ -22,13 +33,11 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(msgToBePrinted.encode(encoding='UTF-8'))
         elif self.path.startswith('/str='):
             to_be_parsed = self.path.split('=')[1]
-            print(to_be_parsed)
         else:
             super().do_GET()
-# { "lowercase" : liczba, "uppercase" : liczba, "digits" : liczba, "special" : liczba}
+
 
 # --- main ---
-
 PORT = 4080
 
 print(f'Starting: http://localhost:{PORT}')
