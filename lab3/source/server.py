@@ -19,24 +19,24 @@ def statistics(string):
 
 
 class web_server(http.server.SimpleHTTPRequestHandler):
+    def set_header(self, string):
+        self.protocol_version = 'HTTP/1.1'
+        self.send_response(200)
+        self.send_header("Content-type", string)
+        self.end_headers()
 
     def do_GET(self):
-
-        print(self.path)
-
         if self.path == '/':
-            self.protocol_version = 'HTTP/1.1'
-            self.send_response(200)
-            self.send_header("Content-type", "application/json")
-            self.end_headers()
+            self.set_header('text/html; charset = UTF-8')
             msgToBePrinted = "Undefined Behaviour"
             self.wfile.write(msgToBePrinted.encode(encoding='UTF-8'))
         elif self.path.startswith('/str='):
             try:
+                self.set_header("application/json")
                 to_be_parsed = self.path.split('=')[1]
-                self.wfile.write(bytes(statistics(to_be_parsed)))
+                self.wfile.write(bytes(statistics(to_be_parsed),encoding='UTF-8'))
             except Exception:
-                self.wfile.write(bytes('Some exception occurred'))
+                self.wfile.write(bytes('Some exception occurred',encoding='UTF-8'))
         else:
             super().do_GET()
 
