@@ -9,10 +9,8 @@ import json
 def calculate(num1,num2):
 	num1 = int(num1)
 	num2 = int(num2)
-	return json.dump(
-	 { "sum" : num1+num2, "sub" : num1-num2, "mul" : num1*num2, "div" : num1//num2, "mod" : num1%num2
-	 }
-	)
+	return { "sum" : num1+num2, "sub" : num1-num2, "mul" : num1*num2, "div" : num1//num2, "mod" : num1%num2 }
+	
 app = Flask(__name__)
 @app.route("/",methods=['GET'])
 def get_numbers():
