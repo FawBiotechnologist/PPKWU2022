@@ -5,23 +5,18 @@ from flask import request
 import json
 
 
-def statistics(string):
-    lowercase = len(re.findall(r'[a-z]', string))
-    uppercase = len(re.findall(r'[A-Z]', string))
-    digits = len(re.findall(r'[1-9]', string))
-    special = len(string) - lowercase - uppercase - digits
-    return json.dumps({
-        "lowercase": lowercase,
-        "uppercase": uppercase,
-        "digits": digits,
-        "special": special
-    })
-    
+
+def calculate(num1,num2):
+	num1 = int(num1)
+	num2 = int(num2)
+	return json.dumps(
+	 { "sum" : num1+num2, "sub" : num1-num2, "mul" : num1*num2, "div" : num1/num2, "mod" : num1%num2
+	 }
+	)
 app = Flask(__name__)
-# print('source code for "http.server":', http.server.__file__)
 @app.route("/",methods=['GET'])
-def stats():
-	return statistics(request.args.get('str'))
+def get_numbers():
+	return calculate(request.args.get('num1'),request.args.get('num2'))
 	
 
 # --- main ---
