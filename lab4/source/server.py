@@ -10,7 +10,7 @@ def calculate(num1,num2):
 	num1 = int(num1)
 	num2 = int(num2)
 	return json.dumps(
-	 { "sum" : num1+num2, "sub" : num1-num2, "mul" : num1*num2, "div" : num1/num2, "mod" : num1%num2
+	 { "sum" : num1+num2, "sub" : num1-num2, "mul" : num1*num2, "div" : num1//num2, "mod" : num1%num2
 	 }
 	)
 app = Flask(__name__)
