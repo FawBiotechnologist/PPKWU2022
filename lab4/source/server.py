@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from flask import Flask
+from flask import Flask, jsonify
 import re
 from flask import request
 import json
@@ -9,7 +9,7 @@ import json
 def calculate(num1,num2):
 	num1 = int(num1)
 	num2 = int(num2)
-	return json.dumps(
+	return json.dump(
 	 { "sum" : num1+num2, "sub" : num1-num2, "mul" : num1*num2, "div" : num1//num2, "mod" : num1%num2
 	 }
 	)
