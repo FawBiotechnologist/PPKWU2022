@@ -25,7 +25,7 @@ def statistics(string):
 
 app = Flask(__name__)
 
-
+#testing app to make sure that it returns .json and it won't crash in edge cases
 @app.route("/", methods=['POST'])
 def get_numbers():
     request_json = request.get_json()
