@@ -4,7 +4,7 @@ import re
 from flask import request
 import json
 
-
+#zapoznanie sie z trescia zadania
 def calculate(num1, num2):
     num1 = int(num1)
     num2 = int(num2)
@@ -14,8 +14,9 @@ def calculate(num1, num2):
 app = Flask(__name__)
 
 
-@app.route("/", methods=['GET'])
+@app.route("/", methods=['POST'])
 def get_numbers():
+    request_json = request.get_json()
     return calculate(request.args.get('num1'), request.args.get('num2'))
 
 
