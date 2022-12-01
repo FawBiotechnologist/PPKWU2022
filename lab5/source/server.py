@@ -29,8 +29,12 @@ app = Flask(__name__)
 def get_numbers():
     request_json = request.get_json()
     string = request_json.get("str")
+    print(string)
     num1 = request_json.get("num1")
+    print(num1)
     num2 = request_json.get("num2")
+    print(num2)
+
     return calculate(request.args.get('num1'), request.args.get('num2'))
 
 
