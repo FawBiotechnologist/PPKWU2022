@@ -2,10 +2,8 @@
 from flask import Flask, jsonify
 import re
 from flask import request
-import json
 
 
-# zapoznanie sie z trescia zadania
 def calculate(num1, num2):
     num1 = int(num1)
     num2 = int(num2)
