@@ -4,11 +4,13 @@ import re
 from flask import request
 import json
 
-#zapoznanie sie z trescia zadania
+
+# zapoznanie sie z trescia zadania
 def calculate(num1, num2):
     num1 = int(num1)
     num2 = int(num2)
     return {"sum": num1 + num2, "sub": num1 - num2, "mul": num1 * num2, "div": num1 // num2, "mod": num1 % num2}
+
 
 def statistics(string):
     lowercase = len(re.findall(r'[a-z]', string))
@@ -22,6 +24,7 @@ def statistics(string):
         "special": special
     }
 
+
 app = Flask(__name__)
 
 
@@ -29,13 +32,16 @@ app = Flask(__name__)
 def get_numbers():
     request_json = request.get_json()
     string = request_json.get("str")
-    print(string)
+    stringDictionary = {}
+    numberDictionary = {}
+    if string is not None:
+        stringDictionary = statistics(string)
     num1 = request_json.get("num1")
-    print(num1)
     num2 = request_json.get("num2")
-    print(num2)
-
-    return calculate(request.args.get('num1'), request.args.get('num2'))
+    if num1 is not None and num2 is not None:
+        numberDictionary = calculate(num1, num2)
+    stringDictionary.update(numberDictionary)
+    return stringDictionary
 
 
 # --- main ---
