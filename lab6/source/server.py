@@ -48,7 +48,7 @@ def get_numbers():
     xml = dict2xml(stringDictionary, wrap='root')
     return Response(xml, mimetype='text/xml')
 
-
+#time was spend on testing
 if __name__ == '__main__':
     PORT = 4080
 
