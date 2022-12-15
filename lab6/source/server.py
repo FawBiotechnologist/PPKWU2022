@@ -53,7 +53,7 @@ def get_numbers():
     stringDictionary.update(numberDictionary)
     xml = dict2xml(stringDictionary, wrap='root')
 
-    return Response(xml, mimetype='text/xml')
+    return Response(xml, mimetype='application/xml')
 
 
 # time was spend on testing
