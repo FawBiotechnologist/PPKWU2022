@@ -49,7 +49,6 @@ def get_numbers():
     return Response(xml, mimetype='text/xml')
 
 
-# --- main ---
 if __name__ == '__main__':
     PORT = 4080
 
