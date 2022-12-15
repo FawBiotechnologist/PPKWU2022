@@ -15,7 +15,7 @@ def calculate(num1, num2):
 def statistics(string):
     lowercase = len(re.findall(r'[a-z]', string))
     uppercase = len(re.findall(r'[A-Z]', string))
-    digits = len(re.findall(r'[0-9]', string))
+    digits = len(re.findall(r'\d', string))
     special = len(string) - lowercase - uppercase - digits
     return {
         "lowercase": lowercase,
