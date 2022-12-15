@@ -33,19 +33,26 @@ def get_numbers():
     request_xml = request.get_data()
     content = xmltodict.parse(request_xml)
     string = content.get("str")
+
     if string is None:
         content = content.get("root")
         string = content.get("str")
+
     stringDictionary = {}
     numberDictionary = {}
+
     if string is not None:
         stringDictionary = statistics(string)
+
     num1 = content.get("num1")
     num2 = content.get("num2")
+
     if num1 is not None and num2 is not None:
         numberDictionary = calculate(num1, num2)
+
     stringDictionary.update(numberDictionary)
     xml = dict2xml(stringDictionary, wrap='root')
+
     return Response(xml, mimetype='text/xml')
 
 
