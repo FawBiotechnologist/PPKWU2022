@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-from flask import Flask, Response, make_response
+from flask import Flask, Response
 import re
 from flask import request
 import xmltodict
 from dict2xml import dict2xml
-
 
 
 def calculate(num1, num2):
@@ -29,7 +28,6 @@ def statistics(string):
 app = Flask(__name__)
 
 
-# testing app to make sure that it returns .json, and it won't crash in edge cases
 @app.route("/", methods=['POST'])
 def get_numbers():
     request_xml = request.get_data()
