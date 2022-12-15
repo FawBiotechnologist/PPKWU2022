@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-from flask import Flask, Response
+from flask import Flask, Response, make_response
 import re
 from flask import request
 import xmltodict
+from dict2xml import dict2xml
 
 
 
@@ -33,8 +34,10 @@ app = Flask(__name__)
 def get_numbers():
     request_xml = request.get_data()
     content = xmltodict.parse(request_xml)
-    print(content)
     string = content.get("str")
+    if string is None:
+        content = content.get("root")
+        string = content.get("str")
     stringDictionary = {}
     numberDictionary = {}
     if string is not None:
@@ -44,7 +47,8 @@ def get_numbers():
     if num1 is not None and num2 is not None:
         numberDictionary = calculate(num1, num2)
     stringDictionary.update(numberDictionary)
-    return Response(stringDictionary, mimetype='text/xml')
+    xml = dict2xml(stringDictionary, wrap='root')
+    return Response(xml, mimetype='text/xml')
 
 
 # --- main ---
